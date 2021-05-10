@@ -17,7 +17,7 @@
   },
   "keywords": ["Vue","Vant","开箱即用","前端框架"],
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "set NODE_ENV=development && vue-cli-service serve",
     "build": "vue-cli-service build",
     "stylelint": "stylelint src/**/*.{html,vue,css,sass,scss} --fix",
     "eslint": "vue-cli-service lint",

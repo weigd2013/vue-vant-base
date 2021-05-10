@@ -8,17 +8,20 @@
 -->
 <template>
   <div id="app">
-    <keep-alive include="Home,First,Own">
-      <router-view />
-    </keep-alive>
-    <tabuse v-show="!$route.meta.fullScreen" />
+    <transition :name="transitionName">
+      <keep-alive include="Home,First,Own">
+        <router-view />
+        <tabuse v-show="!$route.meta.fullScreen" />
+      </keep-alive>
+    </transition>
   </div>
 </template>
 <script>
-import tabuse from './views/Tab/tabuse'
+import Tabuse from './views/Tab/Tab'
+
 export default {
   components: {
-    tabuse
+    [Tabuse.name]: Tabuse
   },
   data() {
     return {

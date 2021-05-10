@@ -8,18 +8,15 @@
 -->
 <template>
   <div id="app">
-    <keep-alive include="Home,First,Own">
-      <router-view />
-    </keep-alive>
-    <tabuse v-show="!$route.meta.fullScreen" />
+    <transition :name="transitionName">
+      <navigation>
+        <router-view class="router" />
+      </navigation>
+    </transition>
   </div>
 </template>
 <script>
-import tabuse from './views/Tab/tabuse'
 export default {
-  components: {
-    tabuse
-  },
   data() {
     return {
       transitionName: 'van-slide-right'

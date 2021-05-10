@@ -12,6 +12,8 @@ import VueRouter from 'vue-router'
 
 // 为了首屏加载快，所以首页不使用懒加载
 import Home from '../views/home'
+import First from '../views/first'
+import Own from '../views/own'
 
 const originalPush = VueRouter.prototype.push
 
@@ -44,6 +46,22 @@ routes.push(
       component: Home,
       meta: {
         title: '首页'
+      }
+    },
+    {
+      path: '/First',
+      name: 'First',
+      component: First,
+      meta: {
+        title: '应用'
+      }
+    },
+    {
+      path: '/Own',
+      name: 'Own',
+      component: Own,
+      meta: {
+        title: '我的'
       }
     },
     // 无权限页面

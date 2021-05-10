@@ -41,7 +41,8 @@ module.exports = {
         singleQuote: true,
         tabWidth: 2,
         trailingComma: 'none',
-        useTabs: false
+        useTabs: false,
+        endOfLine : 'auto'
       }
     ],
     // 使用2个空格缩进
@@ -153,7 +154,7 @@ module.exports = {
     // 允许使用v-html
     "vue/no-v-html":0,
     // 禁用隐式的eval() 比如 setTimeout('alert();', 100)
-    "no-implied-eval": 'error'
+    "no-implied-eval": 'error',
   },
 
 
