@@ -14,6 +14,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/home'
 import First from '../views/first'
 import Own from '../views/own'
+import Draw from '../views/draw'
 
 const originalPush = VueRouter.prototype.push
 
@@ -62,6 +63,14 @@ routes.push(
       component: Own,
       meta: {
         title: '我的'
+      }
+    },
+    {
+      path: '/Draw',
+      name: 'Draw',
+      component: Draw,
+      meta: {
+        title: '画图'
       }
     },
     // 无权限页面
