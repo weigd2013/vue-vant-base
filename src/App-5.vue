@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <draw />
+    <background />
   </div>
 </template>
 <script>
-import draw from './views/draw'
+import Background from './components/background.vue'
 export default {
   name: 'App',
   components: {
-    draw
+    Background
   },
   data() {
     return {
@@ -28,7 +28,6 @@ export default {
 
 <style lang="less">
 #app {
-  height: 100%;
   font-family: PingFangSC-Regular;
   background-color: #f1f3f5;
   -webkit-font-smoothing: antialiased;

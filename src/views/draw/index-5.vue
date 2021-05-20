@@ -7,18 +7,11 @@
       <van-button round icon="add-o" type="info" size="mimi" color="#7232dd">
         phone
       </van-button>
-      <van-button
-        round
-        icon="add-o"
-        type="info"
-        size="mimi"
-        color="#7232dd"
-        @click="addicon"
-      >
+      <van-button round icon="add-o" type="info" size="mimi" color="#7232dd">
         icon
       </van-button>
       <van-button round icon="add-o" type="info" size="mimi" color="#7232dd">
-        下一步
+        按钮
       </van-button>
     </div>
   </div>
@@ -35,11 +28,7 @@ export default {
   },
   data() {
     return {
-      canvas: null,
-      cwidth: 0,
-      cheight: 0,
-      iconset: [],
-      iconnum: 10
+      canvas: null
     }
   },
   mounted() {
@@ -55,29 +44,34 @@ export default {
         preserveObjectStacking: true
       })
       let self = this
-      this.canvas.setBackgroundImage('iphone2p.png', function() {
+      this.canvas.setBackgroundImage('phone1.png', function() {
         self.canvas.renderAll()
       })
-      this.canvas.setOverlayImage(
-        'iphone2g.png',
-        this.canvas.renderAll.bind(this.canvas)
-      )
-      fabric.Image.fromURL('iphone2g.png', function(oImg) {
+      fabric.Image.fromURL('phone1.png', function(oImg) {
         console.log(oImg)
         console.log(oImg.width)
-        self.cwidth = oImg.width
-        self.cheight = oImg.height
         self.canvas.setWidth(oImg.width)
         self.canvas.setHeight(oImg.height)
         /* self.canvas.add(oImg) */
+
+        let rect = new fabric.Rect({
+          left: 0,
+          top: 0,
+          fill: 'red',
+          width: 20,
+          height: 20,
+          angle: 45
+        })
+        self.canvas.add(rect)
+        self.canvas.renderAll()
       })
 
       let rect1 = new fabric.Rect({
-        left: 40,
-        top: 50,
+        left: 100,
+        top: 100,
         fill: 'green',
-        width: 50,
-        height: 50,
+        width: 25,
+        height: 25,
         angle: 45,
         lockMovementX: 'true',
         visible: 'false'
@@ -86,20 +80,12 @@ export default {
       rect1.left += 10
       rect1.lockMovementX = false
       rect1.visible = true
-      rect1.selectable = true
+      rect1.selectable = false
       /*
       fabric.Image.fromURL('head.png', function(oImg) {
         self.canvas.add(oImg)
         oImg.moveto(5)
         oImg.bringForward(true)
-      })
-      this.canvas.on('mouse:over', function(e) {
-        e.target.set('fill', 'green')
-        this.canvas.renderAll()
-      })
-      this.canvas.on('mouse:out', function(e) {
-        e.target.set('fill', 'red')
-        this.canvas.renderAll()
       })*/
       this.canvas.renderAll()
     },
@@ -114,22 +100,6 @@ export default {
         this.canvas.add(img)
         this.canvas.senToBack(img)
       })
-    },
-    addicon: function() {
-      console.log('addicon')
-      console.log(this.cwidth)
-      console.log(this.cheight)
-      let rect = new fabric.Rect({
-        left: this.cwidth / 2,
-        top: this.cheight / 2,
-        fill: 'red',
-        width: 50,
-        height: 50,
-        angle: 45
-      })
-      this.canvas.add(rect)
-      this.iconset.push(rect)
-      this.canvas.renderAll()
     }
   }
 }
@@ -141,7 +111,7 @@ export default {
 .sketch-wrapper {
   position: relative;
   margin: 0 auto;
-  top: 0px;
+  top: 10px;
   left: 100px;
   /* background-color: #e06161; */
 }
@@ -155,7 +125,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 100vh;
+  height: 50vh;
   user-select: none;
 }
 </style>

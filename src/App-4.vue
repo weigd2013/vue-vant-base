@@ -1,14 +1,17 @@
 <template>
   <div id="app">
+    <background />
     <draw />
   </div>
 </template>
 <script>
 import draw from './views/draw'
+import Background from './components/background.vue'
 export default {
   name: 'App',
   components: {
-    draw
+    draw,
+    Background
   },
   data() {
     return {

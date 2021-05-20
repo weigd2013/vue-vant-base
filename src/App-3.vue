@@ -1,14 +1,24 @@
+<!--
+ * @Author: 冯超
+ * @Date: 2020-07-08 16:12:32
+ * @LastEditors: 冯超
+ * @LastEditTime: 2020-07-10 13:02:25
+ * @Description: 文件说明
+ * @FilePath: \vue-base\src\App.vue
+-->
 <template>
   <div id="app">
-    <draw />
+    <keep-alive include="Home,First,Own">
+      <router-view />
+    </keep-alive>
+    <tabuse v-show="!$route.meta.fullScreen" />
   </div>
 </template>
 <script>
-import draw from './views/draw'
+import tabuse from './views/Tab/tabuse'
 export default {
-  name: 'App',
   components: {
-    draw
+    tabuse
   },
   data() {
     return {
@@ -28,9 +38,9 @@ export default {
 
 <style lang="less">
 #app {
-  height: 100%;
+  height: 100vh;
   font-family: PingFangSC-Regular;
-  background-color: #f1f3f5;
+  background-color: #2a68a5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -42,7 +42,7 @@ files.keys().forEach(key => {
 routes.push(
   ...[
     {
-      path: '/',
+      path: '/ddd',
       name: 'Home',
       component: Home,
       meta: {
@@ -66,7 +66,7 @@ routes.push(
       }
     },
     {
-      path: '/Draw',
+      path: '/',
       name: 'Draw',
       component: Draw,
       meta: {
