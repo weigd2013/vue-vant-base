@@ -3,60 +3,47 @@
     <div class="sketch-wrapper">
       <canvas id="sketchCanvas" class="sketch-canvas"></canvas>
     </div>
-    <div class="control-panel">
-      <van-button round icon="add-o" type="info" size="mimi" color="#7232dd">
-        phone
-      </van-button>
-      <van-button
-        round
-        icon="like-o"
-        type="info"
-        size="mimi"
-        color="#7232dd"
-        @click="addicon"
-      >
-        icon
-      </van-button>
-      <van-card
-        v-for="(item, index) in currentDatas"
-        :key="index"
-        :num="item.num"
-        :price="item.price"
-        :desc="item.desc"
-        :title="item.title"
-        :thumb="item.url"
-      >
-        <template #tags>
-          <van-tag plain type="success">
-            标签
-          </van-tag>
-          <van-tag plain type="success">
-            标签
-          </van-tag>
-        </template>
-        <template #footer>
-          <van-button size="mini">
-            删除
-          </van-button>
-        </template>
-      </van-card>
-      <van-button round type="info" size="mimi" color="#7232dd">
-        下一步
-      </van-button>
-    </div>
+    <van-button round icon="add-o" type="info" size="mimi" color="#7232dd">
+      phone
+    </van-button>
+    <van-button
+      round
+      icon="add-o"
+      type="info"
+      size="mimi"
+      color="#7232dd"
+      @click="addicon"
+    >
+      icon
+    </van-button>
+    <van-button round icon="add-o" type="info" size="mimi" color="#7232dd">
+      下一步
+    </van-button>
+    <van-grid :border="true" :column-num="1">
+      <van-grid-item>
+        <van-image src="https://img01.yzcdn.cn/vant/apple-1.jpg" />
+      </van-grid-item>
+      <van-grid-item>
+        <van-image src="https://img01.yzcdn.cn/vant/apple-2.jpg" />
+      </van-grid-item>
+      <van-grid-item>
+        <van-image src="https://img01.yzcdn.cn/vant/apple-3.jpg" />
+      </van-grid-item>
+    </van-grid>
   </div>
 </template>
 
 <script>
 import { fabric } from 'fabric'
-import { Button, Card, Tag } from 'vant'
+import { Button, Grid, GridItem, Image } from 'vant'
 console.log(fabric)
 export default {
   name: 'Sketch',
   components: {
     [Button.name]: Button,
-    [Card.name]: Card,
-    [Tag.name]: Tag
+    [Grid.name]: Grid,
+    [GridItem.name]: GridItem,
+    [Image.name]: Image
   },
   data() {
     return {
@@ -64,23 +51,7 @@ export default {
       cwidth: 0,
       cheight: 0,
       iconset: [],
-      iconnum: 10,
-      currentDatas: [
-        {
-          url: 'https://img01.yzcdn.cn/vant/ipad.jpeg',
-          title: '商品标题',
-          desc: '描述信息',
-          price: 20,
-          num: 2
-        },
-        {
-          url: 'https://img01.yzcdn.cn/vant/ipad.jpeg',
-          title: '方框',
-          desc: '正方形',
-          price: 60,
-          num: 1
-        }
-      ]
+      iconnum: 10
     }
   },
   mounted() {
@@ -117,8 +88,8 @@ export default {
         left: 40,
         top: 50,
         fill: 'green',
-        width: this.cwidth / 2,
-        height: this.cheight / 2,
+        width: 50,
+        height: 50,
         angle: 45,
         lockMovementX: 'true',
         visible: 'false'
@@ -183,7 +154,7 @@ export default {
   position: relative;
   margin: 0 auto;
   top: 0px;
-  left: 10px;
+  left: 100px;
   /* background-color: #e06161; */
 }
 .sketch-canvas {
@@ -192,10 +163,11 @@ export default {
 }
 .control-panel {
   position: absolute;
+  top: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 70vh;
+  height: 50vh;
   user-select: none;
 }
 .image-panel {
