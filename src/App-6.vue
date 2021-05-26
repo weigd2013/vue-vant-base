@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <phone />
+    <draw />
   </div>
 </template>
 <script>
-import phone from './views/phone'
+import draw from './views/draw'
 export default {
   name: 'App',
   components: {
-    phone
+    draw
   },
   data() {
     return {
