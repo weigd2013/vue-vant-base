@@ -1,53 +1,53 @@
 <template>
-  <van-tree-select
-    height="100%"
-    :items="items"
-    :active-id.sync="activeId"
-    :main-active-index.sync="activeIndex"
-    @click-nav="onNavClick"
-    @click-item="onItemClick"
-  >
-    <template slot="content">
-      <van-card
-        v-for="(item, index) in currentDatas[this.active]"
-        :key="index"
-        :num="item.num"
-        :price="item.price"
-        :desc="item.desc"
-        :title="item.title"
-        :thumb="item.url"
-      >
-        <template #tags>
-          <van-tag plain type="success">
-            标签
-          </van-tag>
-          <van-tag plain type="success">
-            标签
-          </van-tag>
-        </template>
-        <template #footer>
-          <van-button size="mini">
-            删除
-          </van-button>
-        </template>
-      </van-card>
-    </template>
-  </van-tree-select>
+  <van-popup v-model="policeShow" position="top" :overlay="true">
+    <van-tree-select
+      :items="items"
+      :active-id.sync="activeId"
+      :main-active-index.sync="activeIndex"
+      @click-nav="onNavClick"
+      @click-item="onItemClick"
+    >
+      <template slot="content">
+        <van-card
+          v-for="(item, index) in currentDatas[this.active]"
+          :key="index"
+          :num="item.num"
+          :price="item.price"
+          :desc="item.desc"
+          :title="item.title"
+          :thumb="item.url"
+        >
+          <template #tags>
+            <van-tag plain type="success">
+              标签
+            </van-tag>
+            <van-tag plain type="success">
+              标签
+            </van-tag>
+          </template>
+          <template #footer>
+            <van-button size="mini">
+              删除
+            </van-button>
+          </template>
+        </van-card>
+      </template>
+    </van-tree-select>
+  </van-popup>
 </template>
 <script>
-import { Popup, TreeSelect, Image, Card, Tag, Button } from 'vant'
+import { Popup, TreeSelect, Image, Card } from 'vant'
 export default {
   components: {
     [Popup.name]: Popup,
     [TreeSelect.name]: TreeSelect,
     [Image.name]: Image,
-    [Card.name]: Card,
-    [Tag.name]: Tag,
-    [Button.name]: Button
+    [Card.name]: Card
   },
   data() {
     return {
       data: 0,
+      policeShow: true,
       active: 0,
       items: [
         {
@@ -70,24 +70,6 @@ export default {
         },
         {
           text: 'iphone11'
-        },
-        {
-          text: 'iphone12'
-        },
-        {
-          text: 'iphone13'
-        },
-        {
-          text: 'iphone14'
-        },
-        {
-          text: 'iphone15'
-        },
-        {
-          text: 'iphone16'
-        },
-        {
-          text: 'iphone17'
         }
       ],
       activeId: [1, 2],
