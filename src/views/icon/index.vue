@@ -9,7 +9,7 @@
   >
     <template slot="content">
       <van-card
-        v-for="(item, index) in caseslist"
+        v-for="(item, index) in currentDatas[this.activeIndex]"
         :key="index"
         :num="item.num"
         :price="item.price"
@@ -54,7 +54,7 @@ export default {
       active: 0,
       items: [
         {
-          text: 'iphone6',
+          text: '狗蛋套组',
           badge: 3,
           dot: true,
           children: [
@@ -69,28 +69,28 @@ export default {
           ]
         },
         {
-          text: 'iphone8'
+          text: '狗蛋套组'
         },
         {
-          text: 'iphone11'
+          text: '狗蛋套组'
         },
         {
-          text: 'iphone12'
+          text: '狗蛋套组'
         },
         {
-          text: 'iphone13'
+          text: '狗蛋套组'
         },
         {
-          text: 'iphone14'
+          text: '狗蛋套组'
         },
         {
-          text: 'iphone15'
+          text: '狗蛋套组'
         },
         {
-          text: 'iphone16'
+          text: '狗蛋套组'
         },
         {
-          text: 'iphone17'
+          text: '狗蛋套组'
         }
       ],
       activeId: [1, 2],
@@ -98,14 +98,28 @@ export default {
       currentDatas: [
         [
           {
-            url: 'http://www.mathgame.cc:8087/phoneimg/image1.png',
+            url: 'http://www.mathgame.cc:8087/icon/0.png',
             title: '商品标题',
             desc: '描述信息',
             price: 20,
             num: 2
           },
           {
-            url: 'http://www.mathgame.cc:8087/phoneimg/image2.png',
+            url: 'http://www.mathgame.cc:8087/icon/1.png',
+            title: '方框',
+            desc: '正方形',
+            price: 30,
+            num: 1
+          },
+          {
+            url: 'http://www.mathgame.cc:8087/icon/1.png',
+            title: '方框',
+            desc: '正方形',
+            price: 30,
+            num: 1
+          },
+          {
+            url: 'http://www.mathgame.cc:8087/icon/1.png',
             title: '方框',
             desc: '正方形',
             price: 30,
@@ -114,14 +128,14 @@ export default {
         ],
         [
           {
-            url: 'http://www.mathgame.cc:8087/phoneimg/image3.png',
+            url: 'http://www.mathgame.cc:8087/icon/2.png',
             title: '商品标题',
             desc: '描述信息',
             price: 40,
             num: 2
           },
           {
-            url: 'http://www.mathgame.cc:8087/phoneimg/image4.png',
+            url: 'http://www.mathgame.cc:8087/icon/3.png',
             title: '方框',
             desc: '正方形',
             price: 50,
@@ -130,14 +144,14 @@ export default {
         ],
         [
           {
-            url: 'https://img01.yzcdn.cn/vant/ipad.jpeg',
+            url: 'http://www.mathgame.cc:8087/icon/4.png',
             title: '商品标题',
             desc: '描述信息',
             price: 60,
             num: 2
           },
           {
-            url: 'https://img01.yzcdn.cn/vant/ipad.jpeg',
+            url: 'http://www.mathgame.cc:8087/icon/5.png',
             title: '方框',
             desc: '正方形',
             price: 70,

@@ -2,7 +2,9 @@ module.exports = {
   root: true,
 
   globals: {
-    process: true
+    process: true,
+    state: true,
+    store: true
   },
 
   parserOptions: {
@@ -156,8 +158,6 @@ module.exports = {
     // 禁用隐式的eval() 比如 setTimeout('alert();', 100)
     "no-implied-eval": 'error',
   },
-
-
 
   // 单元测试相关
   overrides: [

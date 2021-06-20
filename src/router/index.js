@@ -16,6 +16,8 @@ import First from '../views/first'
 import Own from '../views/own'
 import Draw from '../views/draw'
 import Phone from '../views/phone'
+import Login from '../views/login'
+import Icon from '../views/icon'
 
 const originalPush = VueRouter.prototype.push
 
@@ -43,7 +45,7 @@ files.keys().forEach(key => {
 routes.push(
   ...[
     {
-      path: '/ddd',
+      path: '/',
       name: 'Home',
       component: Home,
       meta: {
@@ -75,11 +77,27 @@ routes.push(
       }
     },
     {
-      path: '/',
+      path: '/Phone',
       name: 'Phone',
       component: Phone,
       meta: {
         title: 'Phone'
+      }
+    },
+    {
+      path: '/Login',
+      name: 'Login',
+      component: Login,
+      meta: {
+        title: 'Login'
+      }
+    },
+    {
+      path: '/Icon',
+      name: 'Icon',
+      component: Icon,
+      meta: {
+        title: 'Icon'
       }
     },
     // 无权限页面

@@ -1,6 +1,4 @@
 import axios from 'axios'
-import qs from 'qs'
-import store from '../store'
 let mockMatch = undefined
 // 正式环境不需要使用mock
 if (process.env.NODE_ENV === 'development') {
@@ -11,7 +9,7 @@ console.log(mockMatch)
 // TODO: 请求基础路径，根据项目进行配置,并添加代理
 // const baseURL = '/sso'
 
-const baseURL = 'http://47.113.188.247:8083'
+const baseURL = '/'
 
 // mock请求代理
 const mockURL = '/mock'
@@ -21,7 +19,7 @@ const instance = axios.create({
   // 超时时间 16 秒
   timeout: 16000,
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'application/json;charset=UTF-8'
   }
 })
 
@@ -36,7 +34,7 @@ instance.interceptors.request.use(
     }
     // 在这里做认证，可以从store里面获取token
     // config.headers['Authorization'] = `Bearer ${store.getters.getAccessToken}`
-    config.headers['Authorization'] = store.getters.getAccessToken
+
     // 如果get  请求有缓存，可以加这段代码
     if (config.method === 'get') {
       const now = `${Date.now()}`
@@ -46,9 +44,6 @@ instance.interceptors.request.use(
         const hasParams = config.url.includes('?')
         config.url = config.url + (hasParams ? '&' : '?') + `${now}=${now}`
       }
-    }
-    if (config.method === 'post') {
-      config.data = qs.stringify(config.data)
     }
     console.log(config)
     return config

@@ -12,11 +12,19 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const isProd = process.env.NODE_ENV === 'production'
 
 // 开发模式代理地址 TODO: 按需修改
-const DEV_URL = 'http://127.0.0.1'
+//const DEV_URL = 'http://127.0.0.1'
+//const DEV_URL = 'http://47.113.188.247:8090/mock/8'
+const DEV_URL = 'http://47.113.188.247:8083'
 
 // mock模式代理地址,为了方便演示，这里使用了fastmock线上服务，建议使用yapi,可以搭建私服， TODO: 按需修改
+/*
 const MOCK_URL =
-  'https://www.fastmock.site/mock/52683c53c56c5c59bc1e46d24a3550b6/zijun'
+  'https://www.fastmock.site/mock/52683c53c56c5c59bc1e46d24a3550b6/zijun' 
+const MOCK_URL =
+  'http://47.113.188.247:8090/mock/8' */
+
+  const MOCK_URL =
+  'http://47.113.188.247:8083'
 
 module.exports = {
   configureWebpack: config => {
@@ -62,7 +70,7 @@ module.exports = {
     proxy: {
       '^/api': {
         target: DEV_URL,
-        changeOrigin: false,
+        changeOrigin: true,
         pathRewrite: {
           '^/api': ''
         }
@@ -70,9 +78,16 @@ module.exports = {
       '^/mock/': {
         // TODO: 添加 mock地址
         target: MOCK_URL,
-        changeOrigin: false,
+        changeOrigin: true,
         pathRewrite: {
           '^/mock': ''
+        }
+      },
+      '/sso': {
+        target: 'http://47.113.188.247:8083',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/sso': ''
         }
       }
     }
