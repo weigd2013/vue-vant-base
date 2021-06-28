@@ -11,11 +11,11 @@
       <van-card
         v-for="(item, index) in caseslist"
         :key="index"
-        :num="item.num"
+        :num="item.stock"
         :price="item.price"
-        :desc="item.desc"
-        :title="item.title"
-        :thumb="item.url"
+        :desc="item.brandName"
+        :title="item.name"
+        :thumb="item.pic"
       >
         <template #tags>
           <van-tag plain type="success">
@@ -26,7 +26,7 @@
           </van-tag>
         </template>
         <template #footer>
-          <van-button size="mini">
+          <van-button size="mini" @click="onSubmit(item, index)">
             确定
           </van-button>
         </template>
@@ -36,8 +36,8 @@
 </template>
 <script>
 import { Popup, TreeSelect, Image, Card, Tag, Button } from 'vant'
-import { getphonelist } from '@/api/phonelist'
-import { getshelllist } from '@/api/getphoneshell'
+import { getproductCateList56 } from '@/api/productCateList53'
+import { getproduct } from '@/api/searchproduct'
 
 export default {
   components: {
@@ -54,7 +54,7 @@ export default {
       active: 0,
       items: [
         {
-          text: 'iphone6',
+          text: 'rr',
           badge: 3,
           dot: true,
           children: [
@@ -67,30 +67,6 @@ export default {
               id: 2
             }
           ]
-        },
-        {
-          text: 'iphone8'
-        },
-        {
-          text: 'iphone11'
-        },
-        {
-          text: 'iphone12'
-        },
-        {
-          text: 'iphone13'
-        },
-        {
-          text: 'iphone14'
-        },
-        {
-          text: 'iphone15'
-        },
-        {
-          text: 'iphone16'
-        },
-        {
-          text: 'iphone17'
         }
       ],
       activeId: [1, 2],
@@ -98,14 +74,28 @@ export default {
       currentDatas: [
         [
           {
-            url: 'http://www.mathgame.cc:8087/phoneimg/image1.png',
+            url: 'http://www.mathgame.cc:8087/icon/0.png',
             title: '商品标题',
             desc: '描述信息',
             price: 20,
             num: 2
           },
           {
-            url: 'http://www.mathgame.cc:8087/phoneimg/image2.png',
+            url: 'http://www.mathgame.cc:8087/icon/1.png',
+            title: '方框',
+            desc: '正方形',
+            price: 30,
+            num: 1
+          },
+          {
+            url: 'http://www.mathgame.cc:8087/icon/1.png',
+            title: '方框',
+            desc: '正方形',
+            price: 30,
+            num: 1
+          },
+          {
+            url: 'http://www.mathgame.cc:8087/icon/1.png',
             title: '方框',
             desc: '正方形',
             price: 30,
@@ -114,14 +104,14 @@ export default {
         ],
         [
           {
-            url: 'http://www.mathgame.cc:8087/phoneimg/image3.png',
+            url: 'http://www.mathgame.cc:8087/icon/2.png',
             title: '商品标题',
             desc: '描述信息',
             price: 40,
             num: 2
           },
           {
-            url: 'http://www.mathgame.cc:8087/phoneimg/image4.png',
+            url: 'http://www.mathgame.cc:8087/icon/3.png',
             title: '方框',
             desc: '正方形',
             price: 50,
@@ -130,14 +120,14 @@ export default {
         ],
         [
           {
-            url: 'https://img01.yzcdn.cn/vant/ipad.jpeg',
+            url: 'http://www.mathgame.cc:8087/icon/4.png',
             title: '商品标题',
             desc: '描述信息',
             price: 60,
             num: 2
           },
           {
-            url: 'https://img01.yzcdn.cn/vant/ipad.jpeg',
+            url: 'http://www.mathgame.cc:8087/icon/5.png',
             title: '方框',
             desc: '正方形',
             price: 70,
@@ -153,30 +143,42 @@ export default {
   },
   methods: {
     init: function() {
-      this.getphone()
+      this.items = []
+      this.getList56()
     },
-    async getphone() {
+    async getproductlist(params) {
       try {
-        /* console.log(await getphonelist()) */
-        let phonedata = await getphonelist()
-        console.log(phonedata)
-        if (phonedata.code === 200) {
-          this.items = phonedata.data
-          let params = {}
-          params['typecode'] = this.items[this.activeIndex].typecode
-          this.getcases(params)
-        }
+        console.log('getcases')
+        console.log(params)
+        let listdata = await getproduct(params)
+        this.caseslist = []
+        this.caseslist = listdata.data.list
+        console.log(this.caseslist)
       } catch (error) {
         console.log(error)
       }
     },
-    async getcases(params) {
+    async getList56() {
       try {
-        console.log('getcases')
-        console.log(params)
-        let listdata = await getshelllist(params)
-        this.caseslist = listdata.data
-        console.log(this.caseslist)
+        let list53 = await getproductCateList56()
+        console.log(list53.data)
+        if (list53.code === 200) {
+          let list53data = list53.data
+          for (let i = 0; i < list53data.length; i++) {
+            let item = {}
+            item.text = list53data[i].name
+            item.id = list53data[i].id
+            item.parentId = list53data[i].parentId
+            this.items.push(item)
+          }
+          console.log(this.items)
+          let params = {}
+          params['pageNum'] = 1
+          params['pageSize'] = 10
+          params['sort'] = 0
+          params['productCategoryId'] = this.items[this.activeIndex].id
+          this.getproductlist(params)
+        }
       } catch (error) {
         console.log(error)
       }
@@ -189,11 +191,24 @@ export default {
       let substationCode = this.items[index].activeId
       this.requestPoliceList(substationCode)*/
       let params = {}
-      params['typecode'] = this.items[index].typecode
-      this.getcases(params)
+      params['pageNum'] = 1
+      params['pageSize'] = 10
+      params['sort'] = 0
+      params['productCategoryId'] = this.items[index].id
+      this.getproductlist(params)
     },
     onItemClick: function(data) {
       console.log(data)
+    },
+    onSubmit: function(item, index) {
+      console.log('onsubmit')
+      console.log(item)
+      console.log(index)
+      this.$store.commit('changeSelectCase', true)
+      this.$store.commit('changeProductid', item)
+      this.$router.push({
+        path: '/Draw'
+      })
     }
   }
 }

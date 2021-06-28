@@ -9,6 +9,7 @@
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 
 // 为了首屏加载快，所以首页不使用懒加载
 import Home from '../views/home'
@@ -45,7 +46,7 @@ files.keys().forEach(key => {
 routes.push(
   ...[
     {
-      path: '/',
+      path: '/Home',
       name: 'Home',
       component: Home,
       meta: {
@@ -77,7 +78,7 @@ routes.push(
       }
     },
     {
-      path: '/Phone',
+      path: '/',
       name: 'Phone',
       component: Phone,
       meta: {
@@ -134,6 +135,9 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title
+  if (to.path === '/Login') return next()
+  let isLogin = store.getters.getisLogin
+  if (!isLogin) return next('/Login')
   next()
 })
 

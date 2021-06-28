@@ -1,19 +1,16 @@
 <template>
   <div id="app">
-    <transition :name="transitionName">
-      <keep-alive include="Home,First,Own">
-        <router-view />
-        <tabuse v-show="!$route.meta.fullScreen" />
-      </keep-alive>
-    </transition>
+    <keep-alive include="Home,First,Own">
+      <router-view />
+    </keep-alive>
+    <tabuse v-show="!$route.meta.fullScreen" />
   </div>
 </template>
 <script>
-import Tabuse from './views/Tab/tabuse.vue'
-
+import tabuse from './views/Tab/tabuse'
 export default {
   components: {
-    [Tabuse.name]: Tabuse
+    tabuse
   },
   data() {
     return {
@@ -35,7 +32,7 @@ export default {
 #app {
   height: 100vh;
   font-family: PingFangSC-Regular;
-  background-color: #f1f3f5;
+  background-color: #2a68a5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

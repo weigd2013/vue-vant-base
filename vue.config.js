@@ -69,7 +69,7 @@ module.exports = {
     port: 12315,
     proxy: {
       '^/api': {
-        target: DEV_URL,
+        target: 'http://47.113.188.247:8090/mock/8',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

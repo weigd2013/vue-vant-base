@@ -135,21 +135,24 @@ export default {
         preserveObjectStacking: true
       })
       let self = this
-      this.canvas.setBackgroundImage(
-        bgiurl,
-        function() {
-          self.canvas.renderAll()
-        },
-        {
-          crossOrigin: 'anonymous'
-        }
-      )
+      let image = new Image()
+      image.setAttribute('crossOrigin', 'anonymous')
+      image.src = bgiurl
+      let imageinstance = new fabric.Image(image, {
+        crossOrigin: 'anonymous'
+      })
+      this.canvas.setBackgroundImage(imageinstance, function() {
+        self.canvas.renderAll()
+      })
+      let image1 = new Image()
+      image1.setAttribute('crossOrigin', 'anonymous')
+      image1.src = oliuarl
+      let imageinstance1 = new fabric.Image(image1, {
+        crossOrigin: 'anonymous'
+      })
       this.canvas.setOverlayImage(
-        oliuarl,
-        this.canvas.renderAll.bind(this.canvas),
-        {
-          crossOrigin: 'anonymous'
-        }
+        imageinstance1,
+        this.canvas.renderAll.bind(this.canvas)
       )
       fabric.Image.fromURL(oliuarl, function(oImg) {
         console.log(oImg)
@@ -213,38 +216,63 @@ export default {
       console.log(this.$store.getters.getcurrentDatas)
       let data = this.$store.getters.getcurrentDatas
       for (let i = 0; i < data.length; i++) {
-        this.addicon(data[i].pic)
+        let image = new Image()
+        image.setAttribute('crossOrigin', 'anonymous')
+        image.src = data[i].pic
+        this.addicon(image)
       }
     },
-    addicon: function(url) {
-      console.log(url)
+    addicon1: function() {
+      console.log('addicon')
+      console.log(this.cwidth)
+      console.log(this.cheight)
+      let rect = new fabric.Rect({
+        left: this.cwidth / 2,
+        top: this.cheight / 2,
+        fill: 'red',
+        width: 50,
+        height: 50,
+        angle: 45
+      })
+      this.canvas.add(rect)
+      this.iconset.push(rect)
+      this.canvas.renderAll()
+    },
+    addicon2: function() {
       let self = this
       fabric.Image.fromURL(
-        url,
+        'http://oss.mathgame.cc:8088/mall/20210623/20.png',
         function(oImg) {
           oImg.left = 0
           oImg.top = 0
-          console.log(oImg)
           self.canvas.add(oImg)
-        },
-        {
-          crossOrigin: 'anonymous'
         }
       )
     },
+    addicon: function(image) {
+      let self = this
+      let imageinstance = new fabric.Image(image, {
+        crossOrigin: 'anonymous'
+      })
+      fabric.Image.fromURL(imageinstance, function(oImg) {
+        oImg.left = 0
+        oImg.top = 0
+        console.log(oImg)
+        self.canvas.add(oImg)
+      })
+    },
     saveimage: function() {
-      const canvasAsImageB64 = this.canvas
-        .toDataURL()
-        .replace('image/png', 'image/octet-stream')
-      console.log(canvasAsImageB64)
-      window.location.href = canvasAsImageB64
+      /*
+      let image = new Image()
+      image.setAttribute('crossOrigin', 'anonymous')
+      image.src = this.canvas.toDataURL()
+      console.log(image) */
+      const currState = this.canvas.toJSON()
+      console.log(currState)
     },
     savetoJSON: function() {
       const currState = this.canvas.toJSON()
       console.log(currState)
-    },
-    loadtoJSON: function(json) {
-      this.canvas.loadFromJSON(json, this.canvas.renderAll.bind(this.canvas))
     }
   }
 }

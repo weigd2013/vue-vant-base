@@ -67,8 +67,6 @@
         没有账号？点击注册
       </router-link>
     </div>
-    <h1>{{ this.$store.state.count }}</h1>
-    <h1>{{ this.$store.getters.getcount }}</h1>
   </div>
 </template>
 
@@ -111,9 +109,11 @@ export default {
           return
         }
         if (res.code === 200) {
+          this
           this.$store.commit('changeLogin', res.data)
+          this.$store.commit('Logintrue')
           this.$router.push({
-            path: '/Icon'
+            path: '/'
           })
         }
       })

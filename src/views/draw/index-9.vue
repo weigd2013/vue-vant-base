@@ -4,6 +4,26 @@
       <canvas id="sketchCanvas" class="sketch-canvas"></canvas>
     </div>
     <div class="control-panel">
+      <van-button
+        round
+        icon="add-o"
+        type="info"
+        size="mimi"
+        color="#7232dd"
+        @click="addphonecase"
+      >
+        phone
+      </van-button>
+      <van-button
+        round
+        icon="like-o"
+        type="info"
+        size="mimi"
+        color="#7232dd"
+        @click="addicon"
+      >
+        icon
+      </van-button>
       <van-card
         v-for="(item, index) in currentDatas"
         :key="index"
@@ -29,13 +49,12 @@
       </van-card>
       <van-button
         round
-        icon="add-o"
         type="info"
         size="mimi"
         color="#7232dd"
-        @click="saveimage"
+        @click="addicon2"
       >
-        下单
+        下一步
       </van-button>
     </div>
   </div>
@@ -61,6 +80,23 @@ export default {
       iconset: [],
       iconnum: 10,
       localCount: 11,
+      /*
+      currentDatas: [
+        {
+          url: 'https://img01.yzcdn.cn/vant/ipad.jpeg',
+          title: '商品标题',
+          desc: '描述信息',
+          price: 20,
+          num: 2
+        },
+        {
+          url: 'https://img01.yzcdn.cn/vant/ipad.jpeg',
+          title: '方框',
+          desc: '正方形',
+          price: 60,
+          num: 1
+        }
+      ],*/
       phonecase: {}
     }
   },
@@ -73,22 +109,10 @@ export default {
   }),
   mounted() {
     this.init()
-    this.render()
   },
   methods: {
     init: async function() {
-      let flag = this.$store.getters.getselectCase
-      if (!flag) {
-        this.initSketch()
-      } else {
-        this.phonecase = this.$store.getters.getproductid
-        console.log(this.phonecase.albumPics)
-        let str = this.phonecase.albumPics.split(',')
-        console.log(str)
-        let bgiurl = str[1]
-        let oliuarl = str[0]
-        this.initselectSketch(bgiurl, oliuarl)
-      }
+      this.initSketch()
     },
     initSketch: function() {
       this.canvas = new fabric.Canvas('sketchCanvas', {
@@ -128,40 +152,6 @@ export default {
       })*/
       this.canvas.renderAll()
     },
-    initselectSketch: function(bgiurl, oliuarl) {
-      console.log('initselectSketch')
-      this.canvas = new fabric.Canvas('sketchCanvas', {
-        containerClass: 'sketch-container',
-        preserveObjectStacking: true
-      })
-      let self = this
-      this.canvas.setBackgroundImage(
-        bgiurl,
-        function() {
-          self.canvas.renderAll()
-        },
-        {
-          crossOrigin: 'anonymous'
-        }
-      )
-      this.canvas.setOverlayImage(
-        oliuarl,
-        this.canvas.renderAll.bind(this.canvas),
-        {
-          crossOrigin: 'anonymous'
-        }
-      )
-      fabric.Image.fromURL(oliuarl, function(oImg) {
-        console.log(oImg)
-        console.log(oImg.width)
-        self.cwidth = oImg.width
-        self.cheight = oImg.height
-        self.canvas.setWidth(oImg.width)
-        self.canvas.setHeight(oImg.height)
-        /* self.canvas.add(oImg) */
-      })
-      this.canvas.renderAll()
-    },
     imageIsloaded: function(e) {
       fabric.Image.fromURL(e.targe.result, function(img) {
         /* let aspectRatio = 600/500 */
@@ -174,7 +164,7 @@ export default {
         this.canvas.senToBack(img)
       })
     },
-    addicon3: function() {
+    addicon: function() {
       /*
       console.log('addicon')
       console.log(this.cwidth)
@@ -204,47 +194,34 @@ export default {
     onSubmit: function(index) {
       console.log(index)
       this.$store.commit('deletecurrentData', index)
-      this.canvas.clear()
-      this.initSketch()
-      this.render()
     },
-    render: function() {
-      console.log('render')
-      console.log(this.$store.getters.getcurrentDatas)
-      let data = this.$store.getters.getcurrentDatas
-      for (let i = 0; i < data.length; i++) {
-        this.addicon(data[i].pic)
-      }
+    render: function() {},
+    addicon1: function() {
+      console.log('addicon')
+      console.log(this.cwidth)
+      console.log(this.cheight)
+      let rect = new fabric.Rect({
+        left: this.cwidth / 2,
+        top: this.cheight / 2,
+        fill: 'red',
+        width: 50,
+        height: 50,
+        angle: 45
+      })
+      this.canvas.add(rect)
+      this.iconset.push(rect)
+      this.canvas.renderAll()
     },
-    addicon: function(url) {
-      console.log(url)
+    addicon2: function() {
       let self = this
       fabric.Image.fromURL(
-        url,
+        'http://oss.mathgame.cc:8088/mall/20210623/20.png',
         function(oImg) {
-          oImg.left = 0
-          oImg.top = 0
-          console.log(oImg)
+          oImg.left = self.cwidth / 3
+          oImg.top = self.cheight / 2
           self.canvas.add(oImg)
-        },
-        {
-          crossOrigin: 'anonymous'
         }
       )
-    },
-    saveimage: function() {
-      const canvasAsImageB64 = this.canvas
-        .toDataURL()
-        .replace('image/png', 'image/octet-stream')
-      console.log(canvasAsImageB64)
-      window.location.href = canvasAsImageB64
-    },
-    savetoJSON: function() {
-      const currState = this.canvas.toJSON()
-      console.log(currState)
-    },
-    loadtoJSON: function(json) {
-      this.canvas.loadFromJSON(json, this.canvas.renderAll.bind(this.canvas))
     }
   }
 }
@@ -257,7 +234,7 @@ export default {
   position: relative;
   margin: 0 auto;
   top: 0px;
-  left: 0px;
+  left: 5px;
   /* background-color: #e06161; */
 }
 .sketch-canvas {
@@ -268,8 +245,8 @@ export default {
   position: absolute;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  height: 80vh;
+  justify-content: space-evenly;
+  height: 70vh;
   user-select: none;
 }
 .image-panel {

@@ -4,8 +4,11 @@
       <van-tabbar-item icon="home-o" to="/">
         首页
       </van-tabbar-item>
-      <van-tabbar-item icon="cart" to="/First">
-        购物车
+      <van-tabbar-item icon="cart" to="/Draw">
+        绘制
+      </van-tabbar-item>
+      <van-tabbar-item icon="cart" to="/Icon">
+        贴图
       </van-tabbar-item>
       <van-tabbar-item icon="contact" to="/Own">
         用户
@@ -32,11 +35,14 @@ export default {
         case '/':
           this.active = 0
           break
-        case '/First':
+        case '/Draw':
           this.active = 1
           break
-        case '/Own':
+        case '/Icon':
           this.active = 2
+          break
+        case '/Own':
+          this.active = 3
           break
         default:
           this.active = 0
