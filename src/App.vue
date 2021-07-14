@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive include="Home,First,Own">
+    <keep-alive include="Home,First,Own,Cart">
       <router-view />
     </keep-alive>
     <tabuse v-show="!$route.meta.fullScreen" />
@@ -32,7 +32,7 @@ export default {
 #app {
   height: 100vh;
   font-family: PingFangSC-Regular;
-  background-color: #2a68a5;
+  background-color: #f0f3f5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -25,6 +25,7 @@
     </van-row>
     <van-cell-group class="user-group">
       <van-cell title="全部订单" icon="records" is-link to="/OrderList" />
+      <van-cell title="地址管理" icon="records" is-link to="/Address" />
     </van-cell-group>
   </div>
 </template>

@@ -10,6 +10,9 @@
       <van-tabbar-item icon="cart" to="/Icon">
         贴图
       </van-tabbar-item>
+      <van-tabbar-item icon="cart" to="/Cart">
+        购物车
+      </van-tabbar-item>
       <van-tabbar-item icon="contact" to="/Own">
         用户
       </van-tabbar-item>
@@ -41,8 +44,11 @@ export default {
         case '/Icon':
           this.active = 2
           break
-        case '/Own':
+        case '/Cart':
           this.active = 3
+          break
+        case '/Own':
+          this.active = 4
           break
         default:
           this.active = 0

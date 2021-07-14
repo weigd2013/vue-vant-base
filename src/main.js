@@ -32,6 +32,8 @@ if (process.env.NODE_ENV === 'development') {
   const VConsole = require('vconsole')
   new VConsole()
 }
+// 全局引入UI库 vant
+import '@/plugins/vant'
 
 new Vue({
   router,

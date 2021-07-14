@@ -12,8 +12,8 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const isProd = process.env.NODE_ENV === 'production'
 
 // 开发模式代理地址 TODO: 按需修改
-//const DEV_URL = 'http://127.0.0.1'
-//const DEV_URL = 'http://47.113.188.247:8090/mock/8'
+// const DEV_URL = 'http://127.0.0.1'
+// const DEV_URL = 'http://47.113.188.247:8090/mock/8'
 const DEV_URL = 'http://47.113.188.247:8083'
 
 // mock模式代理地址,为了方便演示，这里使用了fastmock线上服务，建议使用yapi,可以搭建私服， TODO: 按需修改
@@ -23,8 +23,7 @@ const MOCK_URL =
 const MOCK_URL =
   'http://47.113.188.247:8090/mock/8' */
 
-  const MOCK_URL =
-  'http://47.113.188.247:8083'
+const MOCK_URL = 'http://47.113.188.247:8083'
 
 module.exports = {
   configureWebpack: config => {
@@ -42,7 +41,7 @@ module.exports = {
   chainWebpack: config => {
     // 项目标题
     config.plugin('html').tap(args => {
-      args[0].title = '前端有的玩'
+      args[0].title = '每个人都可以有自己的工厂'
       return args
     })
     webpackConfig(config)

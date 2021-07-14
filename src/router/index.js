@@ -19,6 +19,11 @@ import Draw from '../views/draw'
 import Phone from '../views/phone'
 import Login from '../views/login'
 import Icon from '../views/icon'
+import Cart from '../views/cart'
+import goodsDetail from '../views/GoodsDetail'
+import Address from '../views/own/address'
+import EditAddress from '../views/own/editaddress'
+import AddAddress from '../views/own/addaddress'
 
 const originalPush = VueRouter.prototype.push
 
@@ -99,6 +104,46 @@ routes.push(
       component: Icon,
       meta: {
         title: 'Icon'
+      }
+    },
+    {
+      path: '/Cart',
+      name: 'Cart',
+      component: Cart,
+      meta: {
+        title: 'Cart'
+      }
+    },
+    {
+      path: '/goodsDetail',
+      name: 'goodsDetail',
+      component: goodsDetail,
+      meta: {
+        title: 'goodsDetail'
+      }
+    },
+    {
+      path: '/Address',
+      name: 'Address',
+      component: Address,
+      meta: {
+        title: 'Address'
+      }
+    },
+    {
+      path: '/EditAddress',
+      name: 'EditAddress',
+      component: EditAddress,
+      meta: {
+        title: 'EditAddress'
+      }
+    },
+    {
+      path: '/AddAddress',
+      name: 'AddAddress',
+      component: AddAddress,
+      meta: {
+        title: 'AddAddress'
       }
     },
     // 无权限页面

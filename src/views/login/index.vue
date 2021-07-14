@@ -109,7 +109,6 @@ export default {
           return
         }
         if (res.code === 200) {
-          this
           this.$store.commit('changeLogin', res.data)
           this.$store.commit('Logintrue')
           this.$router.push({
