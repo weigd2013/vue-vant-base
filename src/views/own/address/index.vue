@@ -36,6 +36,9 @@
 import { mapState, mapMutations } from 'vuex'
 import { AddressList, NavBar } from 'vant'
 import { getaddresslist } from '@/api/productCateList53'
+// 引入发布订阅
+import { CHOOSE_USER_ADDRESS } from '../../../config/pubsub_type'
+import PubSub from 'pubsub-js'
 
 export default {
   components: {
@@ -74,9 +77,10 @@ export default {
       this.$router.push({ path: '/AddAddress' })
     },
     onEdit(item) {
-      this.$router.push({ path: '/EditAddress', params: { content: item } })
+      this.$router.push({ name: 'EditAddress', params: { content: item } })
     },
-    onBackAddress() {
+    onBackAddress(item) {
+      PubSub.publish(CHOOSE_USER_ADDRESS, item)
       this.$router.back()
     }
   }

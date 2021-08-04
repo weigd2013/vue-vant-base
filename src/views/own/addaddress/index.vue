@@ -29,6 +29,7 @@
 import { mapMutations } from 'vuex'
 import { AddressEdit, NavBar } from 'vant'
 import areaList from '../../../config/area.js'
+import { addaddressA } from '@/api/productCateList53'
 export default {
   components: {
     [AddressEdit.name]: AddressEdit,
@@ -48,15 +49,35 @@ export default {
     },
     // 2. 保存
     onSave(content) {
-      let addressID = this.addressID().toString()
-      content['id'] = addressID
-      content['address'] =
-        content.province + content.city + content.county + content.addressDetail
-      this.ADD_USER_SHOPPING_ADDRESS({
-        addressID,
-        content
+      console.log('add address')
+      let address = {
+        city: content.city,
+        defaultStatus: 0,
+        detailAddress: content.addressDetail,
+        id: 0,
+        memberId: 0,
+        name: content.name,
+        phoneNumber: content.tel,
+        postCode: content.postalCode,
+        province: content.province,
+        region: content.county
+      }
+      addaddressA(address).then(res => {
+        if (res.code === 200) {
+          let addressID = this.addressID().toString()
+          content['id'] = addressID
+          content['address'] =
+            content.province +
+            content.city +
+            content.county +
+            content.addressDetail
+          this.ADD_USER_SHOPPING_ADDRESS({
+            addressID,
+            content
+          })
+          this.$router.back()
+        }
       })
-      this.$router.back()
     },
     // 生成不重复的id
     addressID() {
@@ -67,12 +88,12 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-#addAddress {
+#addAddress1 {
   position: fixed;
   left: 0;
   top: 0;
   right: 0;
-  bottom: 0;
+  bottom: 100;
   background-color: #f5f5f5;
   z-index: 99999;
   .van-address-edit {

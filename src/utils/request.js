@@ -53,6 +53,14 @@ instance.interceptors.request.use(
       config.headers['Content-Type'] = 'application/json'
       return config
     }
+    if (config.url === '/member/address/add') {
+      config.headers['Content-Type'] = 'application/json'
+      return config
+    }
+    if (config.url.slice(0, 22) === '/member/address/update') {
+      config.headers['Content-Type'] = 'application/json'
+      return config
+    }
     // 如果get  请求有缓存，可以加这段代码
     if (config.method === 'get') {
       const now = `${Date.now()}`

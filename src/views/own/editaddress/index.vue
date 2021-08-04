@@ -16,8 +16,8 @@
       :address-info="addressInfo"
       :search-result="searchResult"
       style="margin-top:3rem"
-      @save="onSave"
       @delete="onDelete"
+      @save="onSave"
     />
   </div>
 </template>
@@ -26,7 +26,7 @@
 import { mapMutations } from 'vuex'
 import areaList from '../../../config/area.js'
 import { AddressEdit, NavBar } from 'vant'
-
+import { editaddressA, deleteaddressA } from '@/api/productCateList53'
 export default {
   components: {
     [AddressEdit.name]: AddressEdit,
@@ -55,26 +55,50 @@ export default {
     },
     // 2. 保存
     onSave(content) {
-      let id = content.id
-      content['address'] =
-        content.province + content.city + content.county + content.addressDetail
-      this.CHANGE_USER_SHOPPING_ADDRESS({
-        id,
-        content
+      let address = {
+        city: content.city,
+        defaultStatus: 0,
+        detailAddress: content.addressDetail,
+        id: content.id,
+        memberId: content.memberId,
+        name: content.name,
+        phoneNumber: content.tel,
+        postCode: content.postalCode,
+        province: content.province,
+        region: content.county
+      }
+      editaddressA(content.id, address).then(res => {
+        if (res.code === 200) {
+          let id = content.id
+          content['address'] =
+            content.province +
+            content.city +
+            content.county +
+            content.addressDetail
+          this.CHANGE_USER_SHOPPING_ADDRESS({
+            id,
+            content
+          })
+          this.$router.back()
+        }
       })
-      this.$router.back()
     },
     // 删除
     onDelete(content) {
-      let id = content.id
-      this.DELETE_USER_SHOPPING_ADDRESS({ id })
-      this.$router.back()
+      console.log('onDelete')
+      deleteaddressA(content.id).then(res => {
+        if (res.code === 200) {
+          let id = content.id
+          this.DELETE_USER_SHOPPING_ADDRESS({ id })
+          this.$router.back()
+        }
+      })
     }
   }
 }
 </script>
 <style lang="less" scoped>
-#editAddress {
+#editAddress1 {
   position: fixed;
   left: 0;
   top: 0;

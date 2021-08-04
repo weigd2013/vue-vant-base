@@ -24,6 +24,8 @@ import goodsDetail from '../views/GoodsDetail'
 import Address from '../views/own/address'
 import EditAddress from '../views/own/editaddress'
 import AddAddress from '../views/own/addaddress'
+import EditOrder from '../views/order'
+import OrderGoodsList from '../views/orderGoodsList'
 
 const originalPush = VueRouter.prototype.push
 
@@ -144,6 +146,22 @@ routes.push(
       component: AddAddress,
       meta: {
         title: 'AddAddress'
+      }
+    },
+    {
+      path: '/EditOrder',
+      name: 'EditOrder',
+      component: EditOrder,
+      meta: {
+        title: 'EditOrder'
+      }
+    },
+    {
+      path: '/OrderGoodsList',
+      name: 'OrderGoodsList',
+      component: OrderGoodsList,
+      meta: {
+        title: 'OrderGoodsList'
       }
     },
     // 无权限页面

@@ -324,7 +324,7 @@ export default {
       // 6.1 当选中商品数量大于0跳转
       if (this.selectedGoodNum > 0) {
         // 跳转到订单界面
-        this.$router.push('/order')
+        this.$router.push('/EditOrder')
       } else {
         Toast({
           message: this.$t('order.chooseGoods'),
